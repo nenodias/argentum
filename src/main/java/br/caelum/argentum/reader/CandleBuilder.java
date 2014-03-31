@@ -4,10 +4,10 @@
  */
 package br.caelum.argentum.reader;
 
-import br.caelum.argentum.Candle;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.Calendar;
+
+import br.caelum.argentum.Candle;
 
 /**
  *

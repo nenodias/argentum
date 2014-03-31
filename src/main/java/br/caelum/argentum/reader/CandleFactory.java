@@ -4,14 +4,14 @@
  */
 package br.caelum.argentum.reader;
 
-import br.caelum.argentum.Candle;
-import br.caelum.argentum.Negocio;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import br.caelum.argentum.Candle;
+import br.caelum.argentum.Negocio;
 
 /**
  *

@@ -4,16 +4,20 @@
  */
 package br.caelum.argentum.indicadores;
 
-import br.caelum.argentum.SerieTemporal;
 import java.math.BigDecimal;
 import java.math.MathContext;
+
+import br.caelum.argentum.Indicador;
+import br.caelum.argentum.SerieTemporal;
 
 /**
  *
  * @author nenodias
  */
-public class MediaMovelPonderada {
+public class MediaMovelPonderada implements Indicador {
     BigDecimal constante = new BigDecimal("6", MathContext.DECIMAL32);
+    
+    @Override
     public BigDecimal calcula(int posicao, SerieTemporal serie){
 //        Lembrar que o BigDecimal é imutável TO DO
         BigDecimal aux = new BigDecimal("1", MathContext.DECIMAL32);
@@ -23,5 +27,10 @@ public class MediaMovelPonderada {
             aux = aux.add(BigDecimal.ONE, MathContext.DECIMAL32);
         }
         return soma.divide(constante, MathContext.DECIMAL32);
+    }
+    
+    @Override
+    public String toString() {
+    	return this.getClass().getSimpleName();
     }
 }

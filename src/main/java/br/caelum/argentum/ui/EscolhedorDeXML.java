@@ -4,15 +4,15 @@
  */
 package br.caelum.argentum.ui;
 
-import br.caelum.argentum.Negocio;
-import br.caelum.argentum.reader.LeitorXML;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+
+import br.caelum.argentum.Negocio;
+import br.caelum.argentum.reader.LeitorXML;
 
 /**
  *

@@ -4,19 +4,23 @@
  */
 package br.caelum.argentum.ui;
 
-import br.caelum.argentum.Negocio;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
+
 import javax.swing.table.AbstractTableModel;
+
+import br.caelum.argentum.Negocio;
 
 /**
  *
  * @author nenodias
  */
 public class NegociosTableModel extends AbstractTableModel{
-    private final List<Negocio> negocios;
+
+	private static final long serialVersionUID = 4939738590172643983L;
+	
+	private final List<Negocio> negocios;
     
     public NegociosTableModel(List<Negocio> negocios){
        this.negocios = negocios; 

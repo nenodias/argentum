@@ -4,9 +4,6 @@
  */
 package br.caelum.argentum.reader;
 
-import br.caelum.argentum.Negocio;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -14,6 +11,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+
+import br.caelum.argentum.Negocio;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  *
@@ -57,6 +59,7 @@ public class GeradorAleatorioDeXML {
         
         PrintStream out = new PrintStream(new File("negocios.xml"));
         out.println(stream.toXML(negocios));
+        out.close();
         
     }
     
