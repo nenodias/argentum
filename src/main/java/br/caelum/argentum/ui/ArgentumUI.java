@@ -5,11 +5,15 @@
 package br.caelum.argentum.ui;
 
 import br.caelum.argentum.Negocio;
+
+import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Locale;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +30,7 @@ public class ArgentumUI {
     private JFrame janela;
     private JPanel painelPrincipal;
     private JTable tabela;
+	private JPanel painelBotoes;
     
     public static void main(String[] args) {
         Locale.setDefault(new Locale("pt","BR"));//Dizendo que a aplicação usará o local padrão do Brasil
@@ -37,18 +42,25 @@ public class ArgentumUI {
         preparaPainelPrincipal();
         preparaTitulo();
         preparaTabela();
+        preparaPainelBotoes();
         preparaBotaoCarregar();
         preparaBotaoSair();
         mostraJanela();
     }
 
-    private void preparaJanela() {
+    private void preparaPainelBotoes() {
+		painelBotoes = new JPanel(new GridLayout());
+		painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
+	}
+
+	private void preparaJanela() {
         janela = new JFrame("Argentum");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void preparaPainelPrincipal() {
         painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new BorderLayout());
         janela.add(painelPrincipal);
     }
 
@@ -64,7 +76,7 @@ public class ArgentumUI {
             }
         });
         //Fim da Ação do Botão
-        painelPrincipal.add(botaoCarregar);
+        painelBotoes.add(botaoCarregar);
     }
 
     private void preparaBotaoSair() {
@@ -77,7 +89,7 @@ public class ArgentumUI {
             }
          }
         );
-        painelPrincipal.add(botaoSair);
+        painelBotoes.add(botaoSair);
     }
 
     private void mostraJanela() {
@@ -91,12 +103,12 @@ public class ArgentumUI {
         
         JScrollPane scroll = new JScrollPane();
         scroll.getViewport().add(tabela);
-        painelPrincipal.add(scroll);
+        painelPrincipal.add(scroll, BorderLayout.CENTER);
     }
 
     private void preparaTitulo() {
         JLabel titulo = new JLabel("Lista de Negócios", SwingConstants.CENTER);
         titulo.setFont(new Font("Verdana", Font.BOLD, 25));
-        painelPrincipal.add(titulo);
+        painelPrincipal.add(titulo, BorderLayout.NORTH);
     }
 }
