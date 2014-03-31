@@ -4,8 +4,6 @@
  */
 package br.caelum.argentum.ui;
 
-import br.caelum.argentum.Negocio;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -19,8 +17,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+
+import br.caelum.argentum.Candle;
+import br.caelum.argentum.Negocio;
+import br.caelum.argentum.SerieTemporal;
+import br.caelum.argentum.grafico.GeradorDeGrafico;
+import br.caelum.argentum.indicadores.IndicadorAbertura;
+import br.caelum.argentum.indicadores.IndicadorFechamento;
+import br.caelum.argentum.reader.CandleFactory;
 
 /**
  *
@@ -31,6 +38,7 @@ public class ArgentumUI {
     private JPanel painelPrincipal;
     private JTable tabela;
 	private JPanel painelBotoes;
+	private JTabbedPane abas;
     
     public static void main(String[] args) {
         Locale.setDefault(new Locale("pt","BR"));//Dizendo que a aplicação usará o local padrão do Brasil
@@ -40,6 +48,7 @@ public class ArgentumUI {
     private void montaTela(){
         preparaJanela();
         preparaPainelPrincipal();
+        preparaAbas();
         preparaTitulo();
         preparaTabela();
         preparaPainelBotoes();
@@ -48,7 +57,14 @@ public class ArgentumUI {
         mostraJanela();
     }
 
-    private void preparaPainelBotoes() {
+    private void preparaAbas() {
+		abas = new JTabbedPane();
+		abas.addTab("Tabela", null);
+		abas.addTab("Gráfico", null);
+		painelPrincipal.add(abas);
+	}
+
+	private void preparaPainelBotoes() {
 		painelBotoes = new JPanel(new GridLayout());
 		painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 	}
@@ -70,9 +86,7 @@ public class ArgentumUI {
         botaoCarregar.addActionListener( new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-             List<Negocio>lista = new EscolhedorDeXML().escolhe();   
-             NegociosTableModel ntm = new NegociosTableModel(lista);
-             tabela.setModel(ntm);
+             carregaDados();
             }
         });
         //Fim da Ação do Botão
@@ -103,7 +117,8 @@ public class ArgentumUI {
         
         JScrollPane scroll = new JScrollPane();
         scroll.getViewport().add(tabela);
-        painelPrincipal.add(scroll, BorderLayout.CENTER);
+//        painelPrincipal.add(scroll, BorderLayout.CENTER);
+        abas.setComponentAt(0, scroll);
     }
 
     private void preparaTitulo() {
@@ -111,4 +126,22 @@ public class ArgentumUI {
         titulo.setFont(new Font("Verdana", Font.BOLD, 25));
         painelPrincipal.add(titulo, BorderLayout.NORTH);
     }
+
+	private void carregaDados() {
+		List<Negocio>lista = new EscolhedorDeXML().escolhe();
+		NegociosTableModel ntm = new NegociosTableModel(lista);
+		tabela.setModel(ntm);
+		
+		CandleFactory fabrica = new CandleFactory();
+		List<Candle> candles = fabrica.constroiCandles(lista);
+		SerieTemporal serie = new SerieTemporal(candles);
+		
+		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
+		
+		gerador.plotaMediaMovelSimples(new IndicadorAbertura());
+		gerador.plotaMediaMovelPonderada(new IndicadorAbertura());
+		gerador.plotaMediaMovelSimples(new IndicadorFechamento());
+		gerador.plotaMediaMovelPonderada(new IndicadorFechamento());
+		abas.setComponentAt(1, gerador.getPanel());
+	}
 }

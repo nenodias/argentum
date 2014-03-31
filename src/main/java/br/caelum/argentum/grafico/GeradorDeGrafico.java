@@ -46,16 +46,12 @@ public class GeradorDeGrafico {
 		}
 	}
 	
-	public void plotaMediaMovelSimples(){
-		plotaIndicador(new MediaMovelSimples());
+	public void plotaMediaMovelSimples(Indicador indicador){
+		plotaIndicador(new MediaMovelSimples(indicador));
 	}
 	
-	public void plotaMediaMovelPonderada(){
-		plotaIndicador(new MediaMovelPonderada());
-	}
-	
-	public void plotaIndicadorFechamento(){
-		plotaIndicador(new IndicadorFechamento());
+	public void plotaMediaMovelPonderada(Indicador indicador){
+		plotaIndicador(new MediaMovelPonderada(indicador));
 	}
 	
 	public void salvar(OutputStream out) throws IOException{
