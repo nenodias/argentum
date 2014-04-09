@@ -4,7 +4,10 @@
  */
 package br.caelum.argentum;
 
+import br.caelum.argentum.ui.Coluna;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -27,18 +30,22 @@ public final class Negocio implements Comparable<Negocio>{
         this.data = data;
     }
 
+    @Coluna(posicao = 0, nome = "Preço", pattern = "R$%.4f")
     public BigDecimal getPreco() {
         return preco;
     }
 
+    @Coluna(posicao = 1, nome = "Quantidade")
     public int getQuantidade() {
         return quantidade;
     }
 
+    @Coluna(posicao = 2, nome = "Data", pattern = "%1$td/%1$tm/%1$tY")
     public Calendar getData() {
         return (Calendar) data.clone();
     }
     
+    @Coluna(posicao = 3, nome = "Volume", pattern = "%.4f")
     public BigDecimal getVolume(){
         return preco.multiply(BigDecimal.valueOf(quantidade));
     }
