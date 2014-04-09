@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
+import org.apache.log4j.Logger;
+
 import br.caelum.argentum.Indicador;
 import br.caelum.argentum.SerieTemporal;
 
@@ -16,6 +18,8 @@ import br.caelum.argentum.SerieTemporal;
  * @author nenodias
  */
 public class MediaMovelSimples implements Indicador{
+	
+	private static final Logger LOGGER = Logger.getLogger(MediaMovelSimples.class);
     
 	private static final BigDecimal constante = new BigDecimal("3");
 	
@@ -30,6 +34,7 @@ public class MediaMovelSimples implements Indicador{
     public BigDecimal calcula (int posicao, SerieTemporal serie){
         BigDecimal soma = new BigDecimal(BigInteger.ZERO, 2, MathContext.DECIMAL32);
         for (int i = posicao - 2; i <= posicao; i++) {
+        	LOGGER.info("Calculando média móvel simples para a posicao: "+posicao);
             soma = soma.add( outroIndicador.calcula(i, serie) );
         }
         return soma.divide(constante, MathContext.DECIMAL32);

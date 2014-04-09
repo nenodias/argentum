@@ -50,7 +50,7 @@ public class MediaMovelSimplesTest {
         System.out.println("calcula");
         int posicao = 0;
         SerieTemporal serie = null;
-        MediaMovelSimples instance = new MediaMovelSimples();
+        MediaMovelSimples instance = new MediaMovelSimples(new IndicadorFechamento());
         BigDecimal expResult = null;
         BigDecimal result = instance.calcula(posicao, serie);
         assertEquals(expResult, result);
@@ -63,7 +63,7 @@ public class MediaMovelSimplesTest {
         BigDecimal constante = new BigDecimal("3", MathContext.DECIMAL32);
         SerieTemporal serie = GeradorDeSerie.criaSerie(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"),
                 new BigDecimal("3"),new BigDecimal("4"),new BigDecimal("5"),new BigDecimal("4"),new BigDecimal("3"));
-        MediaMovelSimples mms = new MediaMovelSimples();
+        MediaMovelSimples mms = new MediaMovelSimples(new IndicadorFechamento());
         
         assertEquals(new BigDecimal("2.00", MathContext.DECIMAL32), mms.calcula(2, serie));
         assertEquals(new BigDecimal("3.00", MathContext.DECIMAL32), mms.calcula(3, serie));

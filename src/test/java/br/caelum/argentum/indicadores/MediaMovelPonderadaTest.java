@@ -51,7 +51,7 @@ public class MediaMovelPonderadaTest {
         BigDecimal constante = new BigDecimal("6", MathContext.DECIMAL32);
         SerieTemporal serie = GeradorDeSerie.criaSerie(new BigDecimal("1"), new BigDecimal("2"),
                 new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"),new BigDecimal("6"));
-        MediaMovelPonderada mms = new MediaMovelPonderada();
+        MediaMovelPonderada mms = new MediaMovelPonderada(new IndicadorFechamento());
         
         assertEquals(new BigDecimal("2.333333", MathContext.DECIMAL32), mms.calcula(2, serie));
         assertEquals(new BigDecimal("3.333333", MathContext.DECIMAL32), mms.calcula(3, serie));
