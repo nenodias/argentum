@@ -51,6 +51,7 @@ public class ArgentumUI {
 	private JTabbedPane abas;
 	private JFormattedTextField campoData;
 	private MenuIndicadores menuIndicadores;
+	private CarregadorXMLWorker worker;
     
     public static void main(String[] args) {
         Locale.setDefault(new Locale("pt","BR"));//Dizendo que a aplicação usará o local padrão do Brasil
@@ -168,7 +169,7 @@ public class ArgentumUI {
 
     private void preparaTabela() {
         tabela = new JTable();
-        
+        worker = new CarregadorXMLWorker(tabela);
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(tabela);
 //        painelPrincipal.add(scroll, BorderLayout.CENTER);
@@ -183,7 +184,12 @@ public class ArgentumUI {
 
 	private void carregaDados() {
 		tabela.clearSelection();
-		List<Negocio>lista = new EscolhedorDeXML().escolhe();
+		List<Negocio>lista = null;
+		try{
+			lista = worker.doInBackground();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		if(campoData.getValue() != null){
 			new FiltradorPorData(campoData.getText()).filtra(lista);
 		}
