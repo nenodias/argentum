@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.caelum.argentum.ui;
 
 import java.text.NumberFormat;
@@ -12,18 +8,14 @@ import javax.swing.table.AbstractTableModel;
 
 import br.caelum.argentum.Negocio;
 
-/**
- *
- * @author nenodias
- */
-public class NegociosTableModel extends AbstractTableModel{
+public class NegociosTableModel extends AbstractTableModel {
 
-	private static final long serialVersionUID = 4939738590172643983L;
-	
-	private final List<Negocio> negocios;
-    
-    public NegociosTableModel(List<Negocio> negocios){
-       this.negocios = negocios; 
+    private static final long serialVersionUID = 4939738590172643983L;
+
+    private final List<Negocio> negocios;
+
+    public NegociosTableModel(List<Negocio> negocios) {
+        this.negocios = negocios;
     }
 
     @Override
@@ -39,8 +31,8 @@ public class NegociosTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columIndex) {
         Negocio n = negocios.get(rowIndex);
-        
-        switch(columIndex){
+
+        switch (columIndex) {
             case 0:
 //                Locale brasil = new Locale("pt","BR");
 //                NumberFormat formatadorMoeda = NumberFormat.getCurrencyInstance(brasil);
@@ -52,13 +44,13 @@ public class NegociosTableModel extends AbstractTableModel{
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 return sdf.format(n.getData().getTime());
         }
-        
+
         return "";
     }
-    
+
     @Override
-    public String getColumnName(int column){
-        switch(column){
+    public String getColumnName(int column) {
+        switch (column) {
             case 0:
                 return "Preço";
             case 1:

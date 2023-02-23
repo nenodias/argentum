@@ -15,58 +15,58 @@ import br.caelum.argentum.indicadores.MediaMovelPonderada;
 import br.caelum.argentum.indicadores.MediaMovelSimples;
 
 public class MenuIndicadores {
-	
-	private JMenuBar menuBar;
-	private HashMap<JCheckBoxMenuItem, Indicador> indicadoresNoMenu;
 
-	public MenuIndicadores(){
-		List<Indicador> indicadores = new ArrayList<Indicador>();
-		indicadores.add(new IndicadorAbertura());
-		indicadores.add(new IndicadorFechamento());
-		indicadores.add(new MediaMovelPonderada(new IndicadorAbertura()));
-		indicadores.add(new MediaMovelPonderada(new IndicadorFechamento()));
-		indicadores.add(new MediaMovelSimples(new IndicadorAbertura()));
-		indicadores.add(new MediaMovelSimples(new IndicadorFechamento()));
-		
-		menuBar = new JMenuBar();
-		JMenu menuIndicadores = new JMenu("Indicadores");
-		menuBar.add(menuIndicadores);
-		
-		indicadoresNoMenu = new HashMap<JCheckBoxMenuItem, Indicador>();
-		
-		for (Indicador indicador : indicadores) {
-			JCheckBoxMenuItem opcaoIndicador = new JCheckBoxMenuItem(indicador.toString(), true);
-			menuIndicadores.add(opcaoIndicador);
-			indicadoresNoMenu.put(opcaoIndicador, indicador);
-		}
-		
-	}
+    private JMenuBar menuBar;
+    private HashMap<JCheckBoxMenuItem, Indicador> indicadoresNoMenu;
 
-	public JMenuBar getMenuBar() {
-		return menuBar;
-	}
+    public MenuIndicadores() {
+        List<Indicador> indicadores = new ArrayList<Indicador>();
+        indicadores.add(new IndicadorAbertura());
+        indicadores.add(new IndicadorFechamento());
+        indicadores.add(new MediaMovelPonderada(new IndicadorAbertura()));
+        indicadores.add(new MediaMovelPonderada(new IndicadorFechamento()));
+        indicadores.add(new MediaMovelSimples(new IndicadorAbertura()));
+        indicadores.add(new MediaMovelSimples(new IndicadorFechamento()));
 
-	public void setMenuBar(JMenuBar menuBar) {
-		this.menuBar = menuBar;
-	}
+        menuBar = new JMenuBar();
+        JMenu menuIndicadores = new JMenu("Indicadores");
+        menuBar.add(menuIndicadores);
 
-	public HashMap<JCheckBoxMenuItem, Indicador> getIndicadoresNoMenu() {
-		return indicadoresNoMenu;
-	}
+        indicadoresNoMenu = new HashMap<JCheckBoxMenuItem, Indicador>();
 
-	public void setIndicadoresNoMenu(
-			HashMap<JCheckBoxMenuItem, Indicador> indicadoresNoMenu) {
-		this.indicadoresNoMenu = indicadoresNoMenu;
-	}
+        for (Indicador indicador : indicadores) {
+            JCheckBoxMenuItem opcaoIndicador = new JCheckBoxMenuItem(indicador.toString(), true);
+            menuIndicadores.add(opcaoIndicador);
+            indicadoresNoMenu.put(opcaoIndicador, indicador);
+        }
 
-	public List<Indicador> getIndicadoresSelecionados() {
-		List<Indicador> retorno = new ArrayList<Indicador>();
-		for (JCheckBoxMenuItem menuCheckBox : indicadoresNoMenu.keySet()) {
-			if(menuCheckBox.isSelected()){
-				retorno.add( indicadoresNoMenu.get(menuCheckBox) );
-			}
-		}
-		return retorno;
-	}
-	
+    }
+
+    public JMenuBar getMenuBar() {
+        return menuBar;
+    }
+
+    public void setMenuBar(JMenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+
+    public HashMap<JCheckBoxMenuItem, Indicador> getIndicadoresNoMenu() {
+        return indicadoresNoMenu;
+    }
+
+    public void setIndicadoresNoMenu(
+            HashMap<JCheckBoxMenuItem, Indicador> indicadoresNoMenu) {
+        this.indicadoresNoMenu = indicadoresNoMenu;
+    }
+
+    public List<Indicador> getIndicadoresSelecionados() {
+        List<Indicador> retorno = new ArrayList<Indicador>();
+        for (JCheckBoxMenuItem menuCheckBox : indicadoresNoMenu.keySet()) {
+            if (menuCheckBox.isSelected()) {
+                retorno.add(indicadoresNoMenu.get(menuCheckBox));
+            }
+        }
+        return retorno;
+    }
+
 }

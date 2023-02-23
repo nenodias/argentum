@@ -8,8 +8,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)//Irá ser usada em tempo de execução
 public @interface Coluna {
-	int posicao();
+    int posicao();
 
-	String nome();
-	String pattern() default ("%s");
+    String nome();
+
+    String pattern() default ("%s");
 }

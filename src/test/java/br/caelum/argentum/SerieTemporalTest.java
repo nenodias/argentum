@@ -1,46 +1,41 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.caelum.argentum;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 
-/**
- *
- * @author nenodias
- */
 public class SerieTemporalTest {
-    
+
     public SerieTemporalTest() {
     }
-    
-    @BeforeClass
+
+    @BeforeAll
     public static void setUpClass() {
     }
-    
-    @AfterClass
+
+    @AfterAll
     public static void tearDownClass() {
     }
-    
-    @Before
+
+    @BeforeEach
     public void setUp() {
     }
-    
-    @After
+
+    @AfterEach
     public void tearDown() {
     }
 
     /**
      * Test of getCandle method, of class SerieTemporal.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void naoPodeReceberUmaListaNula(){
-      SerieTemporal serie = new SerieTemporal(null);
+    @Test
+    public void naoPodeReceberUmaListaNula() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            SerieTemporal serie = new SerieTemporal(null);
+        });
     }
 }

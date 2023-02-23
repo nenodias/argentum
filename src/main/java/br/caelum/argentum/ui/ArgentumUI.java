@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.caelum.argentum.ui;
 
 import java.awt.BorderLayout;
@@ -39,26 +35,22 @@ import br.caelum.argentum.reader.CandleFactory;
 
 import java.awt.event.MouseAdapter;
 
-/**
- *
- * @author nenodias
- */
 public class ArgentumUI {
     private JFrame janela;
     private JPanel painelPrincipal;
     private JTable tabela;
-	private JPanel painelBotoes;
-	private JTabbedPane abas;
-	private JFormattedTextField campoData;
-	private MenuIndicadores menuIndicadores;
-	private CarregadorXMLWorker worker;
-    
+    private JPanel painelBotoes;
+    private JTabbedPane abas;
+    private JFormattedTextField campoData;
+    private MenuIndicadores menuIndicadores;
+    private CarregadorXMLWorker worker;
+
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("pt","BR"));//Dizendo que a aplicação usará o local padrão do Brasil
+        Locale.setDefault(new Locale("pt", "BR"));//Dizendo que a aplicação usará o local padrão do Brasil
         new ArgentumUI().montaTela();
     }
-    
-    private void montaTela(){
+
+    private void montaTela() {
         preparaJanela();
         preparaMenu();
         preparaPainelPrincipal();
@@ -73,58 +65,58 @@ public class ArgentumUI {
     }
 
     private void preparaMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		janela.setJMenuBar(menuBar);
-		
-		menuIndicadores = new MenuIndicadores(); 
-		menuBar.add(menuIndicadores.getMenuBar());
-		
-		JMenu carregar = new JMenu("Carregar");
-		menuBar.add(carregar);
-		carregar.addMouseListener(new MouseAdapter(){ 
-			@Override
-			public void mousePressed(MouseEvent e) {
-				carregaDados();
-			}
-		});
-		JMenu sair = new JMenu("Sair"); 
-		sair.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				sair();
-			}
-		});
-		menuBar.add(sair);
-	}
+        JMenuBar menuBar = new JMenuBar();
+        janela.setJMenuBar(menuBar);
 
-	private void preparaCampoData() {
-    	try {
-    		JLabel label = new JLabel("Apenas a partir de:");
-		
-    		
-			MaskFormatter mascara = new MaskFormatter("##/##/####");
-			mascara.setPlaceholderCharacter('_');
-			campoData = new JFormattedTextField(mascara);
-			painelBotoes.add(label);
-			painelBotoes.add(campoData);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} 
-	}
+        menuIndicadores = new MenuIndicadores();
+        menuBar.add(menuIndicadores.getMenuBar());
 
-	private void preparaAbas() {
-		abas = new JTabbedPane();
-		abas.addTab("Tabela", null);
-		abas.addTab("Gráfico", null);
-		painelPrincipal.add(abas);
-	}
+        JMenu carregar = new JMenu("Carregar");
+        menuBar.add(carregar);
+        carregar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                carregaDados();
+            }
+        });
+        JMenu sair = new JMenu("Sair");
+        sair.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                sair();
+            }
+        });
+        menuBar.add(sair);
+    }
 
-	private void preparaPainelBotoes() {
-		painelBotoes = new JPanel(new GridLayout());
-		painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
-	}
+    private void preparaCampoData() {
+        try {
+            JLabel label = new JLabel("Apenas a partir de:");
 
-	private void preparaJanela() {
+
+            MaskFormatter mascara = new MaskFormatter("##/##/####");
+            mascara.setPlaceholderCharacter('_');
+            campoData = new JFormattedTextField(mascara);
+            painelBotoes.add(label);
+            painelBotoes.add(campoData);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void preparaAbas() {
+        abas = new JTabbedPane();
+        abas.addTab("Tabela", null);
+        abas.addTab("Gráfico", null);
+        painelPrincipal.add(abas);
+    }
+
+    private void preparaPainelBotoes() {
+        painelBotoes = new JPanel(new GridLayout());
+        painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
+    }
+
+    private void preparaJanela() {
         janela = new JFrame("Argentum");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -138,10 +130,10 @@ public class ArgentumUI {
     private void preparaBotaoCarregar() {
         JButton botaoCarregar = new JButton("Carregar XML");
         //Ação do Botão
-        botaoCarregar.addActionListener( new ActionListener(){
+        botaoCarregar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
-             carregaDados();
+            public void actionPerformed(ActionEvent e) {
+                carregaDados();
             }
         });
         //Fim da Ação do Botão
@@ -150,13 +142,13 @@ public class ArgentumUI {
 
     private void preparaBotaoSair() {
         JButton botaoSair = new JButton("Sair");
-        botaoSair.addActionListener(new ActionListener(){
+        botaoSair.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-            	sair();
-            }
-         }
+                                        @Override
+                                        public void actionPerformed(ActionEvent ae) {
+                                            sair();
+                                        }
+                                    }
         );
         painelBotoes.add(botaoSair);
     }
@@ -182,35 +174,35 @@ public class ArgentumUI {
         painelPrincipal.add(titulo, BorderLayout.NORTH);
     }
 
-	private void carregaDados() {
-		tabela.clearSelection();
-		List<Negocio>lista = null;
-		try{
-			lista = worker.doInBackground();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		if(campoData.getValue() != null){
-			new FiltradorPorData(campoData.getText()).filtra(lista);
-		}
-		
-		ArgentumTableModel ntm = new ArgentumTableModel(lista);
-		tabela.setModel(ntm);
-		
-		CandleFactory fabrica = new CandleFactory();
-		List<Candle> candles = fabrica.constroiCandles(lista);
-		SerieTemporal serie = new SerieTemporal(candles);
-		
-		GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
-		
-		List<Indicador> indicadores = menuIndicadores.getIndicadoresSelecionados();
-		for (Indicador indicador : indicadores) {
-			gerador.plotaIndicador(indicador);
-		}
-		abas.setComponentAt(1, gerador.getPanel());
-	}
-	
-	public void sair(){
-		System.exit(0);
-	}
+    private void carregaDados() {
+        tabela.clearSelection();
+        List<Negocio> lista = null;
+        try {
+            lista = worker.doInBackground();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (campoData.getValue() != null) {
+            new FiltradorPorData(campoData.getText()).filtra(lista);
+        }
+
+        ArgentumTableModel ntm = new ArgentumTableModel(lista);
+        tabela.setModel(ntm);
+
+        CandleFactory fabrica = new CandleFactory();
+        List<Candle> candles = fabrica.constroiCandles(lista);
+        SerieTemporal serie = new SerieTemporal(candles);
+
+        GeradorDeGrafico gerador = new GeradorDeGrafico(serie, 2, serie.getTotal() - 1);
+
+        List<Indicador> indicadores = menuIndicadores.getIndicadoresSelecionados();
+        for (Indicador indicador : indicadores) {
+            gerador.plotaIndicador(indicador);
+        }
+        abas.setComponentAt(1, gerador.getPanel());
+    }
+
+    public void sair() {
+        System.exit(0);
+    }
 }
