@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-import org.apache.log4j.Logger;
-
 import br.caelum.argentum.Indicador;
 import br.caelum.argentum.SerieTemporal;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MediaMovelSimples implements Indicador {
 
-    private static final Logger LOGGER = Logger.getLogger(MediaMovelSimples.class);
+    private static final Logger LOGGER = LogManager.getRootLogger();
 
     private static final BigDecimal constante = new BigDecimal("3");
 
